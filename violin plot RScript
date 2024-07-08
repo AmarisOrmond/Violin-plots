@@ -30,22 +30,22 @@ Climate_Data_UK_All_Species_new_only$Species <- factor(Climate_Data_UK_All_Speci
 
 ### summarise ###
 
-boxplots.summary.Bio18 <- Climate_Data_UK_All_Species_new_only %>%
+summary.Bio18 <- Violin_plot_data_github %>%
   group_by(Species) %>%
   summarise(
     mean= mean(Bio_18))
-boxplots.summary.Bio18
+summary.Bio18
 
 
-boxplots.summary_bio_16 <- Climate_Data_UK_All_Species_new_only %>%
+boxplots.summary_bio_16 <- Violin_plot_data_github %>%
   group_by(Species) %>%
   summarise(
     mean= mean(Bio_16))
-boxplots.summary_bio_16
+summary_bio_16
 
 
 
-bio.18.new <- ggplot(data = Climate_Data_UK_All_Species_new_only, aes(x =Species, y = Bio_18, colour = Species, fill = Species)) +
+bio.18.new <- ggplot(data = Violin_plot_data_github, aes(x =Species, y = Bio_18, colour = Species, fill = Species)) +
   geom_violin(trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", alpha = 0.9, outlier.shape = NA, show.legend = FALSE) + 
   scale_fill_manual(values = c( "slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan"))+  
@@ -80,7 +80,7 @@ bio.18.new <- ggplot(data = Climate_Data_UK_All_Species_new_only, aes(x =Species
 #####################################################################################
 ########################################################################
 
-bio.16.new <- ggplot(data = Climate_Data_UK_All_Species_new_only, aes(x = Species, y = Bio_16, colour = Species, fill = Species)) +
+bio.16.new <- ggplot(data = Violin_plot_data_github, aes(x = Species, y = Bio_16, colour = Species, fill = Species)) +
   geom_violin(trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", alpha = 0.9, outlier.shape = NA, show.legend = FALSE) + 
   scale_fill_manual(values = c( "slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan"))+  
