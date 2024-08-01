@@ -37,7 +37,7 @@ summary.Bio18 <- Violin_plot_data_github %>%
 summary.Bio18
 
 
-boxplots.summary_bio_16 <- Violin_plot_data_github %>%
+summary_bio_16 <- Violin_plot_data_github %>%
   group_by(Species) %>%
   summarise(
     mean= mean(Bio_16))
