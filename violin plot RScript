@@ -1,3 +1,6 @@
+
+### load all relevant libraries
+
 library(plotly)
 library(readxl)
 install.packages("dplyr")
@@ -21,32 +24,18 @@ install.packages("magrittr")
 library(magrittr)
 install.packages("ggtext")
 library(ggtext)
-
 install.packages("vioplot")
 library(vioplot)
 
 
-Climate_Data_UK_All_Species_new_only$Species <- factor(Climate_Data_UK_All_Species_new_only$Species, levels = c("Lobaria pulmonaria", "Ramalina calicaris", "Sticta limbata", "Sticta sylvatica", "Ricasolia virens", "Hypotrachyna laevigata", "Pectenia atlantica"))
 
-
-### summarise ###
-
-summary_bio_16 <- Climate_Data_UK_All_Species_new_only %>%
-  group_by(Species) %>%
-  summarise(
-    mean= mean(Bio_16))
-summary_bio_16
-
-
-summary.Bio18 <- Climate_Data_UK_All_Species_new_only %>%
-  group_by(Species) %>%
-  summarise(
-    mean= mean(Bio_18))
-summary.Bio18
+#### order species correctly 
+Violin_plot_data_github_xlsx$Species <- factor(Violin_plot_data_github_xlsx$Species, levels = c("Lobaria pulmonaria", "Ramalina calicaris", "Sticta limbata", "Sticta sylvatica", "Ricasolia virens", "Hypotrachyna laevigata", "Pectenia atlantica"))
 
 
 
-bio.16.new <- ggplot(data = Climate_Data_UK_All_Species_new_only, aes(x = Species, y = Bio_16, colour = Species, fill = Species)) +
+### then plot 
+bio.16.new <- ggplot(data = Violin_plot_data_github_xlsx, aes(x = Species, y = Bio_16, colour = Species, fill = Species)) +
   geom_violin(trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", alpha = 0.9, outlier.shape = NA, show.legend = FALSE) + 
   scale_fill_manual(values = c( "slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan"))+  
@@ -72,10 +61,8 @@ theme(plot.margin=unit(c(1, 0.7, 0.4, 1), "cm"))
 
 
 
-
-
 bio.18.new <- 
-  ggplot(data = Climate_Data_UK_All_Species_new_only, aes(x =Species, y = Bio_18, colour = Species, fill = Species)) +
+  ggplot(data = Violin_plot_data_github_xlsx, aes(x =Species, y = Bio_18, colour = Species, fill = Species)) +
   geom_violin(trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", alpha = 0.9, outlier.shape = NA, show.legend = FALSE) + 
   scale_fill_manual(values = c( "slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan"))+  
@@ -95,8 +82,7 @@ bio.18.new <-
         panel.border = element_blank(),
         panel.background = element_blank()) +
 theme(plot.margin=unit(c(1,-0.05,0.25,1), "cm")) +
-
-  theme(legend.text = element_text(face = "italic", size =22)) +
+theme(legend.text = element_text(face = "italic", size =22)) +
   theme(legend.key.size = unit(0.6, "cm")) +
   theme(legend.position = c(0.52, 1)) +
   theme(axis.text.y = element_text(size =26, colour = "black", vjust = -0.1)) +
@@ -107,14 +93,17 @@ theme(legend.title=element_blank())
 
 
 #####################################################################################
+########################################################################
 
-### this is the one that works for aligning them all evenly ##########
+### this is the one that works for aligning them all evenly ##########################
  
 plot_grid(bio.16.new, bio.18.new, ncol = 1, nrow = 2, align = "hv")
+### !!!!!!!!!!!!!!!! THIS IS THE ONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ###########
 
 
+### need to adjust the plot size to ensure it fits into output size
 
-##########################################################
+
  ### alternative, but the do not align well ### 
 
 violin.plots <- rbind(c(1), c(2))
