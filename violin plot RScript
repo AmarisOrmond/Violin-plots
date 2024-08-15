@@ -21,31 +21,32 @@ install.packages("magrittr")
 library(magrittr)
 install.packages("ggtext")
 library(ggtext)
+
 install.packages("vioplot")
 library(vioplot)
 
 
-### set species names and order ### 
 Climate_Data_UK_All_Species_new_only$Species <- factor(Climate_Data_UK_All_Species_new_only$Species, levels = c("Lobaria pulmonaria", "Ramalina calicaris", "Sticta limbata", "Sticta sylvatica", "Ricasolia virens", "Hypotrachyna laevigata", "Pectenia atlantica"))
+
 
 ### summarise ###
 
-summary.Bio18 <- Violin_plot_data_github %>%
-  group_by(Species) %>%
-  summarise(
-    mean= mean(Bio_18))
-summary.Bio18
-
-
-summary_bio_16 <- Violin_plot_data_github %>%
+summary_bio_16 <- Climate_Data_UK_All_Species_new_only %>%
   group_by(Species) %>%
   summarise(
     mean= mean(Bio_16))
 summary_bio_16
 
 
+summary.Bio18 <- Climate_Data_UK_All_Species_new_only %>%
+  group_by(Species) %>%
+  summarise(
+    mean= mean(Bio_18))
+summary.Bio18
 
-bio.18.new <- ggplot(data = Violin_plot_data_github, aes(x =Species, y = Bio_18, colour = Species, fill = Species)) +
+
+
+bio.16.new <- ggplot(data = Climate_Data_UK_All_Species_new_only, aes(x = Species, y = Bio_16, colour = Species, fill = Species)) +
   geom_violin(trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", alpha = 0.9, outlier.shape = NA, show.legend = FALSE) + 
   scale_fill_manual(values = c( "slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan"))+  
@@ -54,44 +55,9 @@ bio.18.new <- ggplot(data = Violin_plot_data_github, aes(x =Species, y = Bio_18,
   theme(axis.title.x = element_blank()) +
   theme(axis.ticks.x = element_blank()) +
   theme(legend.text = element_text(face = "italic")) +
-  theme(axis.title.y = element_markdown(size = 28,)) +
+  theme(axis.title.y = element_markdown(size = 26, colour = "black")) +
   stat_summary(fun="mean", geom="point", size=2, color="black", show.legend = FALSE) +
-  ylab("Mean precipitation of the warmest quarter <br>(kg m<sup>-2</sup> )")    +
-  scale_y_continuous(breaks=seq(0,800, by=100), expand= c(0,0)) +
-  coord_cartesian(ylim=c(0,800)) +
-  theme(axis.line = element_line(colour = "black"),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        panel.background = element_blank()) +
-  theme(legend.position = "none") +
-  theme(plot.margin=unit(c(1,-0.05,0.25,1), "cm")) +
-  theme(legend.title = element_text( size = 28))+
-  theme(legend.text = element_text(face = "italic", size =22)) +
-  theme(legend.key.size = unit(0.7, "cm")) +
-  theme(legend.position = c(0.7, 0.95)) +
-  theme(plot.margin=unit(c(1,-0.05,0.25,1), "cm")) +
-  theme(axis.text.y = element_text(size =20)) +
-  guides(colour = guide_legend(override.aes = list(shape = NA))) +
-  theme(legend.spacing.y = unit(0.1, "cm")) +
-  theme(legend.spacing.x = unit(0.5, "cm")) +
-  guides(fill = guide_legend(byrow = TRUE, ncol =2)) 
-
-#####################################################################################
-########################################################################
-
-bio.16.new <- ggplot(data = Violin_plot_data_github, aes(x = Species, y = Bio_16, colour = Species, fill = Species)) +
-  geom_violin(trim = FALSE) +
-  geom_boxplot(width = 0.1, fill = "white", alpha = 0.9, outlier.shape = NA, show.legend = FALSE) + 
-  scale_fill_manual(values = c( "slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan"))+  
-  scale_colour_manual(values = c("slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan")) +
-  theme(axis.text.x = element_blank()) +
-  theme(axis.title.x = element_blank()) +
-  theme(axis.ticks.x = element_blank()) +
-  theme(legend.text = element_text(face = "italic")) +
-  theme(axis.title.y = element_markdown(size = 28,)) +
-  stat_summary(fun="mean", geom="point", size=2, color="black", show.legend = FALSE) +
-  ylab("Mean precipitation of the wettest quarter <br>(kg m<sup>-2</sup> )")    +
+  ylab("Mean precipitation of the <br> wettest quarter (kg m<sup>-2</sup> )")    +
   scale_y_continuous(breaks=seq(0,1200, by=200), expand= c(0,0)) +
   coord_cartesian(ylim=c(0,1200)) +
   theme(axis.line = element_line(colour = "black"),
@@ -100,19 +66,60 @@ bio.16.new <- ggplot(data = Violin_plot_data_github, aes(x = Species, y = Bio_16
         panel.border = element_blank(),
         panel.background = element_blank()) +
   theme(legend.position = "none") +
-  theme(plot.margin=unit(c(1,-0.05,0.25,1), "cm")) +
-  theme(axis.text.y = element_text(size =18)) +
-  guides(colour = guide_legend(override.aes = list(shape = NA)))
+  theme(axis.text.y = element_text(size =26, colour = "black", vjust = -0.1)) +
+  guides(colour = guide_legend(override.aes = list(shape = NA))) +
+theme(plot.margin=unit(c(1, 0.7, 0.4, 1), "cm")) 
 
 
 
 
 
+bio.18.new <- 
+  ggplot(data = Climate_Data_UK_All_Species_new_only, aes(x =Species, y = Bio_18, colour = Species, fill = Species)) +
+  geom_violin(trim = FALSE) +
+  geom_boxplot(width = 0.1, fill = "white", alpha = 0.9, outlier.shape = NA, show.legend = FALSE) + 
+  scale_fill_manual(values = c( "slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan"))+  
+  scale_colour_manual(values = c("slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan")) +
+  theme(axis.text.x = element_blank()) +
+  theme(axis.title.x = element_blank()) +
+  theme(axis.ticks.x = element_blank()) +
+  theme(legend.text = element_text(face = "italic")) +
+  theme(axis.title.y = element_markdown(size = 26, colour = "black")) +
+  stat_summary(fun="mean", geom="point", size=2, color="black", show.legend = FALSE) +
+  ylab("Mean precipitation of the <br> warmest  quarter (kg m<sup>-2</sup> )")    +
+  scale_y_continuous(breaks=seq(0,800, by = 100), expand= c(0,0)) +
+  coord_cartesian(ylim=c(0,800)) +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank()) +
+theme(plot.margin=unit(c(1,-0.05,0.25,1), "cm")) +
+
+  theme(legend.text = element_text(face = "italic", size =22)) +
+  theme(legend.key.size = unit(0.6, "cm")) +
+  theme(legend.position = c(0.52, 1)) +
+  theme(axis.text.y = element_text(size =26, colour = "black", vjust = -0.1)) +
+  guides(colour = guide_legend(override.aes = list(shape = NA))) +
+  guides(fill = guide_legend(byrow = TRUE, ncol =3)) +
+theme(plot.margin=unit(c(1, 0.7, 0.4, 1), "cm")) +
+theme(legend.title=element_blank())
+
+
+#####################################################################################
+
+### this is the one that works for aligning them all evenly ##########
+ 
+plot_grid(bio.16.new, bio.18.new, ncol = 1, nrow = 2, align = "hv")
 
 
 
+##########################################################
+ ### alternative, but the do not align well ### 
 
+violin.plots <- rbind(c(1), c(2))
 
+grid.arrange(bio.16.new, bio.18.new, ncol = 1, nrow = 3, layout_matrix = violin.plots)
 
 
 
