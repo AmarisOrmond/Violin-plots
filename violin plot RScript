@@ -35,11 +35,11 @@ Violin_plot_data_github_xlsx$Species <- factor(Violin_plot_data_github_xlsx$Spec
 
 
 ### then plot 
-bio.16.new <- ggplot(data = Violin_plot_data_github_xlsx, aes(x = Species, y = Bio_16, colour = Species, fill = Species)) +
+bio.16.new <- ggplot(data = Violin_plot_github, aes(x = Species, y = Bio_16, colour = Species, fill = Species)) +
   geom_violin(trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", alpha = 0.9, outlier.shape = NA, show.legend = FALSE) + 
-  scale_fill_manual(values = c( "slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan"))+  
-  scale_colour_manual(values = c("slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan")) +
+  scale_fill_brewer(palette="Greens")+
+  scale_colour_brewer(palette="Greens")+
   theme(axis.text.x = element_blank()) +
   theme(axis.title.x = element_blank()) +
   theme(axis.ticks.x = element_blank()) +
@@ -57,16 +57,16 @@ bio.16.new <- ggplot(data = Violin_plot_data_github_xlsx, aes(x = Species, y = B
   theme(legend.position = "none") +
   theme(axis.text.y = element_text(size =26, colour = "black", vjust = -0.1)) +
   guides(colour = guide_legend(override.aes = list(shape = NA))) +
-theme(plot.margin=unit(c(1, 0.7, 0.4, 1), "cm")) 
+  theme(plot.margin=unit(c(1, 0.7, 0.4, 1), "cm")) 
 
 
 
 bio.18.new <- 
-  ggplot(data = Violin_plot_data_github_xlsx, aes(x =Species, y = Bio_18, colour = Species, fill = Species)) +
+  ggplot(data = Violin_plot_github, aes(x =Species, y = Bio_18, colour = Species, fill = Species)) +
   geom_violin(trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", alpha = 0.9, outlier.shape = NA, show.legend = FALSE) + 
-  scale_fill_manual(values = c( "slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan"))+  
-  scale_colour_manual(values = c("slategrey","darkorange3", "purple4", "goldenrod4", "forestgreen", "deeppink4", "darkcyan")) +
+  scale_fill_brewer(palette="Greens")+
+  scale_colour_brewer(palette="Greens")+
   theme(axis.text.x = element_blank()) +
   theme(axis.title.x = element_blank()) +
   theme(axis.ticks.x = element_blank()) +
@@ -81,34 +81,25 @@ bio.18.new <-
         panel.grid.minor = element_blank(),
         panel.border = element_blank(),
         panel.background = element_blank()) +
-theme(plot.margin=unit(c(1,-0.05,0.25,1), "cm")) +
-theme(legend.text = element_text(face = "italic", size =22)) +
+  theme(plot.margin=unit(c(1,-0.05,0.25,1), "cm")) +
+  theme(legend.text = element_text(face = "italic", size =22)) +
   theme(legend.key.size = unit(0.6, "cm")) +
-  theme(legend.position = c(0.52, 1)) +
+  theme(legend.position = c(0.52, 0.97)) +
   theme(axis.text.y = element_text(size =26, colour = "black", vjust = -0.1)) +
   guides(colour = guide_legend(override.aes = list(shape = NA))) +
   guides(fill = guide_legend(byrow = TRUE, ncol =3)) +
-theme(plot.margin=unit(c(1, 0.7, 0.4, 1), "cm")) +
-theme(legend.title=element_blank())
+  theme(plot.margin=unit(c(1, 0.7, 0.4, 1), "cm")) +
+  theme(legend.title=element_blank())
+
+
+
 
 
 #####################################################################################
 ########################################################################
 
-### this is the one that works for aligning them all evenly ##########################
- 
+###  ##########################
 plot_grid(bio.16.new, bio.18.new, ncol = 1, nrow = 2, align = "hv")
-### !!!!!!!!!!!!!!!! THIS IS THE ONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ###########
-
-
-### need to adjust the plot size to ensure it fits into output size
-
-
- ### alternative, but the do not align well ### 
-
-violin.plots <- rbind(c(1), c(2))
-
-grid.arrange(bio.16.new, bio.18.new, ncol = 1, nrow = 3, layout_matrix = violin.plots)
 
 
 
